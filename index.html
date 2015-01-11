@@ -7,9 +7,6 @@
     <meta name="author" content=" FILL ME IN ">
     <title>Cameron Pittman: Portfolio</title>
 
-    <!-- Hmm, what is the impact of web fonts on speed? Measure it...
-    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">-->
-
     <style type="text/css">@font-face {
         font-family: 'Open Sans';
         font-style: normal;
@@ -73,8 +70,6 @@
     }
 
     </style>
-    <!--<link href="css/style.css" rel="stylesheet">
-    <link href="css/smartphone.css" rel="stylesheet" media="only screen and (max-width: 480px)">-->
     <link href="css/print.css" rel="stylesheet" media="print">
 
   </head>
@@ -123,14 +118,17 @@
     </footer>
     <script async src="js/perfmatters.js"></script>
 
-    <script src="http://www.google-analytics.com/analytics.js"></script>
-    <script async>
-        (function(w,g){w['GoogleAnalyticsObject']=g;
-            w[g]=w[g]||function(){(w[g].q=w[g].q||[]).push(arguments)};w[g].l=1*new Date();})(window,'ga');
+    <script async src="http://www.google-analytics.com/analytics.js"></script>
+    <script>
+        window.onload = function(){
+            // x functionality when window loads
+            (function(w,g){w['GoogleAnalyticsObject']=g;
+                w[g]=w[g]||function(){(w[g].q=w[g].q||[]).push(arguments)};w[g].l=1*new Date();})(window,'ga');
 
-        // TODO: replace with your Google Analytics profile ID.
-        ga('create', 'UA-XXXX-Y');
-        ga('send', 'pageview');
+            // TODO: replace with your Google Analytics profile ID.
+            ga('create', 'UA-XXXX-Y');
+            ga('send', 'pageview');
+        }
     </script>
   </body>
 </html>
