@@ -115,3 +115,13 @@ function changePizzaSizes(size) {
 ```
 
 As one can see what is left to be done in the loop is now minimal: Only the width is set for each pizza element. No `querySelector` accesses, no calculations and no function calls are repeatedly executed in the loop.
+
+
+###Resources
+
+The following resources were used to complete this project:
+
+- https://www.igvita.com/slides/2012/devtools-tips-and-tricks/jank-demo.html
+- https://developer.chrome.com/devtools/docs/javascript-memory-profiling
+- https://developers.google.com/speed/pagespeed/insights/
+- https://developers.google.com/web/fundamentals/performance/
