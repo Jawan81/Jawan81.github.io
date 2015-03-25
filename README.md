@@ -43,7 +43,7 @@ NOTE: The changes made to main.js are also explained in comments directly in the
 To improve the framerate when the user scrolls up or down the following changes were made.
 
 In the original main.js file the loop in the `updatePositions()` function looked like this:
-```
+```JavaScript
 for (var i = 0; i < items.length; i++) {
 	var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
 	items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
@@ -52,7 +52,7 @@ for (var i = 0; i < items.length; i++) {
 
 By profiling the code execution it turned out that it's a very costly operation to call `document.body.scrollTop` for every item. As its value does not change during function execution it could be pulled out of the loop including the division by 1250:
 
-```
+```JavaScript
 var scrollTop = document.body.scrollTop / 1250;
 
 for (var i = 0; i < items.length; i++) {
@@ -72,7 +72,7 @@ What also made a big difference was to calculate the new width for a pizza item 
 Let's look at the changes made.
 
 The `determineDx()` method changed from
-```
+```JavaScript
 function determineDx (elem, size) {
     var oldwidth = elem.offsetWidth;
     var windowwidth = document.querySelector("#randomPizzas").offsetWidth;
@@ -80,7 +80,7 @@ function determineDx (elem, size) {
     ...
 ```
 to
-```
+```JavaScript
 function determineDx (size, windowwidth, oldwidth) {
     var oldsize = oldwidth / windowwidth;
     ...
@@ -90,7 +90,7 @@ to avoid the access to the element and to values that were already known when ca
 This is actually a minor optimization as it turned out that the `determineDx()` function needs to be called only once.
 
 A massive > 100 times speed improvement was made by calculating the new width before iterating through all pizza items in `changePizzaItems()` instead of repeating it in the loop. Before optimization the function looked like this:
-```
+```JavaScript
 function changePizzaSizes(size) {
     for (var i = 0; i < document.querySelectorAll(".randomPizzaContainer").length; i++) {
         var dx = determineDx(document.querySelectorAll(".randomPizzaContainer")[i], size);
@@ -100,7 +100,7 @@ function changePizzaSizes(size) {
 }
 ```
 and after pulling out the newwidth calculation like this:
-```
+```JavaScript
 function changePizzaSizes(size) {
     var windowwidth = document.querySelector("#randomPizzas").offsetWidth;
     var randomPizzaContainer = document.querySelectorAll(".randomPizzaContainer");
