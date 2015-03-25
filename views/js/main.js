@@ -511,9 +511,9 @@ function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
 
+  var items = document.querySelectorAll('.mover');
   // CHANGE: Calculate scrollTop only once before the loop not in every cycle
   var scrollTop = document.body.scrollTop / 1250;
-  var items = document.querySelectorAll('.mover');
 
   for (var i = 0; i < items.length; i++) {
     var phase = Math.sin(scrollTop + (i % 5));
