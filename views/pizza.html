@@ -1,7 +1,30 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="css/style.css">
+    <style type="text/css">
+        @media(max-width:767px){
+            #pizzeria {
+                display: inherit;
+            }
+            #pizzeria-small {
+                display: none;
+            }
+        }
+        @media(min-width:768px){
+            #pizzeria {
+                display: none;
+            }
+            #pizzeria-small {
+                display: inherit;
+            }
+        }
+
+        @media(min-width:992px){}
+        @media(min-width:1200px){}
+    </style>
   <link rel="stylesheet" href="css/bootstrap-grid.css">
 </head>
 
@@ -23,7 +46,7 @@
                 <form action="#locations">
                   <input type="submit" value="Locations">
                 </form>
-                <form action="#" onsubmit="alert('Thanks for clicking! This button doesn\'t do anything because this is a fake pizzeria :\)')">
+                <form action="#" onsubmit="alert('Thanks for clicking! This button doesn\'t do anything because this is a fake pizzeria :)')">
                   <input type="submit" value="Contact Us">
                 </form>
               </div>
@@ -36,7 +59,8 @@
     </div>
     <div id="callToAction" class="row">
       <div class="col-md-4">
-        <img src="images/pizzeria_720px.jpg" class="img-responsive"> <!-- Image credit to: http://commons.wikimedia.org/wiki/File:HK_TST_night_%E5%98%89%E8%98%AD%E9%81%93_Granville_Road_restaurant_Paisano's_Pizzeria_pizza_Dec-2013.JPG -->
+          <img id="pizzeria-small" src="images/pizzeria_360px.jpg" class="img-responsive">
+        <img id="pizzeria" src="images/pizzeria_720px.jpg" class="img-responsive"> <!-- Image credit to: http://commons.wikimedia.org/wiki/File:HK_TST_night_%E5%98%89%E8%98%AD%E9%81%93_Granville_Road_restaurant_Paisano's_Pizzeria_pizza_Dec-2013.JPG -->
       </div>
       <div class="col-md-8">
         <div class="row">
