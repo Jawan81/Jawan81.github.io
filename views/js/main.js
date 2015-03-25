@@ -421,10 +421,9 @@ var resizePizzas = function(size) {
 
   changeSliderLabel(size);
 
-  // Returns the size difference to change a pizza element from one size to another. Called by changePizzaSlices(size).
+  //Returns the size difference to change a pizza element from one size to another. Called by changePizzaSlices(size).
+  // CHANGE: The signature of this function change as former arguments are now calculated beforehand in the calling function
   function determineDx (size, windowwidth, oldwidth) {
-    // var oldwidth = elem.offsetWidth;
-    //var windowwidth = document.querySelector("#randomPizzas").offsetWidth;
     var oldsize = oldwidth / windowwidth;
 
     // TODO: change to 3 sizes? no more xl?
@@ -450,14 +449,18 @@ var resizePizzas = function(size) {
 
   // Iterates through pizza elements on the page and changes their widths
   function changePizzaSizes(size) {
+    // CHANGE: Use the querySelector only once per DOM item/container and store them in variables
     var windowwidth = document.querySelector("#randomPizzas").offsetWidth;
     var randomPizzaContainer = document.querySelectorAll(".randomPizzaContainer");
 
-    // calculate new width only once not for every pizza...
+    // CHANGE: calculate new width only once and not for every pizza within the loop
     var pizzaOldWidth = randomPizzaContainer[0].offsetWidth;
+
+    // CHANGE: Call determineDx only once and give already calculated values as arguments
     var dx = determineDx(size, windowwidth, pizzaOldWidth);
     var newwidth = (pizzaOldWidth + dx) + 'px';
 
+    // CHANGE: Use randomPizzaContainer instead of querying it in every cycle. Only set the new width in the loop.
     for (var i = 0; i < randomPizzaContainer.length; i++) {
       randomPizzaContainer[i].style.width = newwidth;
     }
@@ -508,6 +511,7 @@ function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
 
+  // CHANGE: Calculate scrollTop only once before the loop not in every cycle
   var scrollTop = document.body.scrollTop / 1250;
   var items = document.querySelectorAll('.mover');
 
@@ -545,55 +549,3 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   updatePositions();
 });
-
-
-
-
-
-
-
-
-function updatePositions_orig() {
-  var heavyScroll=!!document.querySelector('#heavy-scroll').checked;
-  var items=document.querySelectorAll('.mover');
-  var cachedScrollTop=document.body.scrollTop;
-
-  for(var i=0;i<items.length;i++){
-    var phase;
-    if(heavyScroll)
-      phase=Math.sin((document.body.scrollTop/1250)+(i%5));
-    else
-      phase=Math.sin((cachedScrollTop/1250)+(i%5));
-
-    items[i].style.left=items[i].basicLeft+100*phase+'px';
-  }
-}
-
-function updatePaintClasses(){
-  var heavyPaint=!!document.querySelector('#heavy-paint').checked;
-  var items=document.querySelectorAll('.mover');
-
-  for(var i=0;i<items.length;i++){
-    if(heavyPaint)
-      items[i].classList.add('heavy-painting');
-    else
-      items[i].classList.remove('heavy-painting');
-  }
-}
-
-// document.querySelector('#heavy-paint').addEventListener('click',updatePaintClasses);
-// window.addEventListener('scroll',updatePositions);
-// document.addEventListener('DOMContentLoaded',function(){
-//   var cols=8;
-//   var s=256;
-//   for(var i=0;i<200;i++){
-//     var el=document.createElement('img');
-//     el.className='mover';
-//     el.src="images/chrome-logo-med.png";
-//     el.basicLeft=(i%cols)*s;
-//     el.style.top=(Math.floor(i/cols)*s)+'px';
-//     document.body.appendChild(el);
-//   }
-//   updatePaintClasses();
-//   updatePositions();
-// });
