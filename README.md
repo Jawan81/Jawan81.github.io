@@ -50,18 +50,24 @@ for (var i = 0; i < items.length; i++) {
 }
 ```
 
-By profiling the code execution it turned out that it's a very costly operation to call `document.body.scrollTop` for every item. As its value does not change during function execution it could be pulled out of the loop including the division by 1250:
+By profiling the code execution it turned out that it's a very costly operation to call `document.body.scrollTop` and `Math.sin` for every item. As these value do not change during function execution they could be pulled out of the loop. Additionally a sine lookup table was used:
 
 ```JavaScript
 var scrollTop = document.body.scrollTop / 1250;
 
-for (var i = 0; i < items.length; i++) {
-	var phase = Math.sin(scrollTop + (i % 5));
-	items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
+for (i = 0; i < 5; i++) {
+    this.sinPositions[i] = 100 * Math.sin(scrollTop + i);
 }
 ```
 
-This small change resulted in a massive improvment on the site's framerate during scrolling.
+Also the usage `style.left` was replaced with `transform.translateX`:
+
+```JavaScript
+var phase = this.sinPositions[elem.sinPos];
+elem.style.transform = 'translateX('+ phase + 'px' +')';
+```
+
+These small changes resulted in a massive improvement on the site's framerate during scrolling.
 
 ####Change Pizza Size optimizations
 
@@ -116,6 +122,9 @@ function changePizzaSizes(size) {
 
 As one can see what is left to be done in the loop is now minimal: Only the width is set for each pizza element. No `querySelector` accesses, no calculations and no function calls are repeatedly executed in the loop.
 
+Furthermore the `capitalize` method was pretty costly to call for all members of the lookup tables. To avoid it the lookup tables were updated with capitalized versions.
+
+
 
 ###Resources
 
@@ -125,3 +134,4 @@ The following resources were used to complete this project:
 - https://developer.chrome.com/devtools/docs/javascript-memory-profiling
 - https://developers.google.com/speed/pagespeed/insights/
 - https://developers.google.com/web/fundamentals/performance/
+- http://stackoverflow.com/questions/610406/javascript-equivalent-to-printf-string-format

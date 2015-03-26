@@ -364,6 +364,7 @@ String.prototype.format = function() {
     });
 };
 
+// HTML template for a pizza
 var pizzaTemplate =
     '<div id="pizza{0}" class="randomPizzaContainer" style="width:33.33%; height: 325px;">' +
         '<div class="col-md-6"><img src="images/pizza.png" class="img-responsive"></div>' +
